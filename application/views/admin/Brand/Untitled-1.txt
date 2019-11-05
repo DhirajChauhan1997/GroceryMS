@@ -1,0 +1,129 @@
+
+	<div class="container">
+		<h2><?php echo $title; ?></h2>
+
+		<!-- Display status message -->
+		<?php if (!empty($success_msg)) { ?>
+			<div class="col-xs-12">
+				<div class="alert alert-success"><?php echo $success_msg; ?></div>
+			</div>
+		<?php } elseif (!empty($error_msg)) { ?>
+			<div class="col-xs-12">
+				<div class="alert alert-danger"><?php echo $error_msg; ?></div>
+			</div>
+		<?php } ?>
+
+		<div class="row">
+			<div class="col-md-12 search-panel">
+				<!-- Search form -->
+				<form method="post">
+					<div class="input-group mb-3">
+						<input type="text" name="searchKeyword" class="form-control" placeholder="Search by keyword..." value="<?php echo $searchKeyword; ?>">
+						<div class="input-group-append">
+							<input type="submit" name="submitSearch" class="btn btn-outline-secondary" value="Search">
+							<input type="submit" name="submitSearchReset" class="btn btn-outline-secondary" value="Reset">
+						</div>
+					</div>
+				</form>
+
+				<!-- Add link -->
+				<div class="float-right">
+					<a href="<?php echo base_url('BrandController/add'); ?>" class="btn btn-success"><i class="plus"></i> New Member</a>
+				</div>
+			</div>
+
+			<!-- Data list table -->
+			<table class="table table-striped table-bordered">
+				<thead class="thead-dark">
+					<tr>
+						<th>#</th>
+						<th>Brand Name</th>
+						<th>Logo</th>
+						<th>Descr</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php if (!empty($datalst)) {
+						foreach ($datalst as $row) { ?>
+							<tr>
+								<td><?php echo $row['brand_id']; ?></td>
+								<td><?php echo $row['brand']; ?></td>
+								<td><?php echo $row['brand_logo']; ?></td>
+								<td><?php echo $row['brand_desc']; ?></td>
+
+								<td>
+									<a href="<?php echo site_url('members/view/' . $row['brand_id']); ?>" class="btn btn-primary">view</a>
+									<a href="<?php echo site_url('members/edit/' . $row['brand_id']); ?>" class="btn btn-warning">edit</a>
+									<a href="<?php echo site_url('members/delete/' . $row['brand_id']); ?>" class="btn btn-danger" onclick="return confirm('Are you sure to delete?')">delete</a>
+								</td>
+							</tr>
+						<?php }
+						} else { ?>
+						<tr>
+							<td colspan="7">No member(s) found...</td>
+						</tr>
+					<?php } ?>
+				</tbody>
+			</table>
+
+			<!-- Display pagination links -->
+			<div class="pagination pull-right">
+				<?php echo $this->pagination->create_links(); ?>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+
+
+
+
+<div class="container">
+	<h2><?php echo $title; ?></h2>
+
+	<!-- Display status message -->
+	<?php if (!empty($success_msg)) { ?>
+		<div class="col-xs-12">
+			<div class="alert alert-success"><?php echo $success_msg; ?></div>
+		</div>
+	<?php } elseif (!empty($error_msg)) { ?>
+		<div class="col-xs-12">
+			<div class="alert alert-danger"><?php echo $error_msg; ?></div>
+		</div>
+	<?php } ?>
+
+	<div class="row">
+		<div class="col-md-6">
+			<form method="post">
+
+				<div class="form-group">
+					<label>Brand Name</label>
+					<input type="text" class="form-control" name="brand" placeholder="Enter Brand Name" value="<?php echo !empty($member['brand']) ? $member['brand'] : ''; ?>">
+					<?php echo form_error('brand', '<div class="invalid-feedback">', '</div>'); ?>
+				</div>
+
+
+				<div class="form-group">
+					<label>Email</label>
+					<input type="text" class="form-control" name="brand_logo" placeholder="Enter email" value="<?php echo !empty($member['email']) ? $member['email'] : ''; ?>">
+					<?php echo form_error('email', '<div class="invalid-feedback">', '</div>'); ?>
+				</div>
+
+
+				<div class="form-group">
+					<label>Email</label>
+					<input type="text" class="form-control" name="brand_desc" placeholder="Enter email" value="<?php echo !empty($member['email']) ? $member['email'] : ''; ?>">
+					<?php echo form_error('email', '<div class="invalid-feedback">', '</div>'); ?>
+				</div>
+
+
+				<a href="<?php echo site_url('members'); ?>" class="btn btn-secondary">Back</a>
+				<input type="submit" name="memSubmit" class="btn btn-success" value="Submit">
+			</form>
+		</div>
+	</div>
+</div>
